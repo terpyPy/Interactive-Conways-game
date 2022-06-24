@@ -2,7 +2,7 @@
  interactive game of life simulation.
  the main file to run the game is lights_out.py
  
- -spacebare starts runing the interactie animation, can be paused by pressing the 1 key and unpause with the 2 key.
+ - spacebare starts runing the interactie animation, can be paused by pressing the 1 key and unpause with the 2 key.
  - right arrow key makes a random board state to start.
  - down arrow key clear the whole board and stops the animation, can create custom start patterns by clicking cells.
  - pressing c will toggle the multicolor function on and off.
