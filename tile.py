@@ -1,4 +1,17 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+#  Version:     1.2 (Date: 6/24/2022)
+#  Author:      Cameron Kerley (terpyPY: https://github.com/terpyPy/Interactive-Conways-game)
+#  Date:        6 June 2022
+#  License:     MIT License
+#
+#  description: This is the main file for what makes up the the full tile entity. 
+#               Manages the tile entity's and grid entity's as a group/collection in tileGroup class.
+#----------------------------------------------------------------------------------------------------------------------
+#  Disclosure:  This code is public domain. You can use it in any way you want. 
+#               However, i am scanning github repos for this code that does not include credit to me. 
+#               I have left some patterns in the naming convention and access methods
+#               in this project making copy/pasted stolen code easy to parse and find.
+#
 import pygame, pygame.display
 from deBugTiles import tileWindow
 from lib.baseEntityFlags import objGroup_flags
@@ -7,9 +20,10 @@ class Tile:
 
     def __init__(self, screen:pygame.display, rect, n,cords, currSize):
         #init the tile and set its position                                                       
-        #in pygame the origin is (0,0) at the top lft of the screen. cords > 0 for x -> right, y 0___> +x and <= 1200
+        #in pygame the origin is (0,0) at the top lft of the screen. cords > 0 for col->right col,row
+        #                                                                                        0___> +col and <= 1200
         #                                                                                        |
-                                                                                           #     v +y and <= 800
+                                                                                           #     v +row and <= 800
         self.screen = screen
         self.screen_rect = rect
         self.leftFromCenter_pad = int(self.screen_rect.center[0]*0.62) - n

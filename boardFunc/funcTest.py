@@ -1,3 +1,17 @@
+#!/usr/bin/python3
+#
+#  Author:      Cameron Kerley (terpyPY: https://github.com/terpyPy/Interactive-Conways-game)
+#  Date:        6 June 2022
+#  License:     MIT License
+#  description:: functions for 8 neighbor adjacency algorithm, and methods for converting between linier matrix and 2D array.
+#----------------------------------------------------------------------------------------------------------------------
+#  Disclosure:  This code is public domain. You can use it in any way you want. 
+#               However, i am scanning github repos for this code that does not include credit to me. 
+#               I have left some patterns in the naming convention and access methods
+#               in this project making copy/pasted stolen code easy to parse and find.
+#----------------------------------------------------------------------------------------------------------------------
+
+# sudo code that helped write this function was found here: https://stackoverflow.com/a/652123
 def neighbors(matrix, rowNumber, colNumber):
     result = []
     # search the grid by the cords given 

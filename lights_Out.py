@@ -1,4 +1,19 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+#
+#  Author:      Cameron Kerley (terpyPY: https://github.com/terpyPy/Interactive-Conways-game)
+#  Date:        6 June 2022
+#  License:     MIT License
+#
+#  Disclosure:  This code is public domain. You can use it in any way you want. 
+#               However, i am scanning github repos for this code that does not include credit to me. 
+#               I have left some patterns in the naming convention and access methods
+#               in this project making copy/pasted stolen code easy to parse and find.
+#
+#  Description: pygame version of Conway's Game of Life and a puzzle game the uses
+#               the neighbor adjacency rule to invert the colors of the tiles, 
+#               with the goal to turn off all tiles. finally a drawing on the board option,
+#               to set custom starting board states.
+#
 from lib.baseEntityFlags import objGroup_flags
 import time
 from boardStateDriver import boardState
@@ -50,7 +65,7 @@ class LightsOutGame(objGroup_flags):
        
         # init the UI, N is passed to size the list comprehinsion,
         # was written to allow rebuilding the game in any NxN grid
-        self.create_board_UI()
+        # self.create_board_UI()
         # this library makes having user type box easy, not good
         self.textinput = pygame_textinput.TextInputVisualizer()
         # set the clock for pygame this will be used to synchronize 
@@ -67,10 +82,7 @@ class LightsOutGame(objGroup_flags):
             self.screen = pygame.display.set_mode(
             (0,0), pygame.FULLSCREEN)
             pygame.display.set_caption("lights out")
-            self.settings = Settings(self.N, 
-                                     0,
-                                     screen=(self.screen.get_rect().center[0],
-                                                       self.screen.get_rect().center[1]))
+            self.settings = Settings(screen=(self.screen.get_rect().center[0], self.screen.get_rect().center[1]), isGlobal=True)
             # init the grid drawn over each tile
             #
             """TODO: refactor constructor modifier class to allow for reshaping of the grid

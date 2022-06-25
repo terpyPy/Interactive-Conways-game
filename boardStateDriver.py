@@ -1,4 +1,14 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+#
+#  Author:      Cameron Kerley (terpyPY: https://github.com/terpyPy/Interactive-Conways-game)
+#  Date:        6 June 2022
+#  License:     MIT License
+#
+#  Disclosure:  This code is public domain. You can use it in any way you want. 
+#               However, i am scanning github repos for this code that does not include credit to me. 
+#               I have left some patterns in the naming convention and access methods
+#               in this project making copy/pasted stolen code easy to parse and find.
+#
 import time
 import boardFunc
 from time import monotonic
@@ -16,7 +26,7 @@ class boardState(Settings):
 
     def __init__(self, state, *args):
         # inherited instance of Settings from the game settings class
-        super().__init__(state.N)
+        super().__init__(isGlobal='boardState.py')
         self.N = state.N
         self.colorList = [[None]*self.N for _ in range(self.N)]
         self.emptyBoard = [

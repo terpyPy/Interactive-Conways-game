@@ -1,3 +1,14 @@
+#!/usr/bin/python3
+#
+#  Author:      Cameron Kerley (terpyPY: https://github.com/terpyPy/Interactive-Conways-game)
+#  Date:        6 June 2022
+#  License:     MIT License
+#
+#  Disclosure:  This code is public domain. You can use it in any way you want. 
+#               However, i am scanning github repos for this code that does not include credit to me. 
+#               I have left some patterns in the naming convention and access methods
+#               in this project making copy/pasted stolen code easy to parse and find.
+#
 class objGroup_flags:
     def __init__(self, *flags)->None:
         '''get any flags passed in to constructor and collect them, 
