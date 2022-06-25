@@ -14,6 +14,7 @@
 #               with the goal to turn off all tiles. finally a drawing on the board option,
 #               to set custom starting board states.
 #
+import os
 from lib.baseEntityFlags import objGroup_flags
 import time
 from boardStateDriver import boardState
@@ -67,7 +68,7 @@ class LightsOutGame(objGroup_flags):
         # was written to allow rebuilding the game in any NxN grid
         # self.create_board_UI()
         # this library makes having user type box easy, not good
-        self.textinput = pygame_textinput.TextInputVisualizer()
+        self.textinput = pygame_textinput.TextInputVisualizer(font_object = pygame.font.Font(os.path.join('pygame/', 'freesansbold.ttf'), 20))
         # set the clock for pygame this will be used to synchronize 
         # the frames of the text box courser
         self.clock = pygame.time.Clock()

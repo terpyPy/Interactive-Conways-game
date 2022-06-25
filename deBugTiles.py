@@ -13,14 +13,15 @@
 #               I have left some patterns in the naming convention and access methods
 #               in this project making copy/pasted stolen code easy to parse and find.
 import pygame
-
+import os
 class tileWindow:
+    
     def __init__(self, state,n,x,y):
         self.msg = n
         self.screen = state.screen
         self.x = x+5
         self.y = y+5
-        self.font = pygame.font.Font('freesansbold.ttf', 11)
+        self.font = pygame.font.Font(os.path.join('pygame/', 'freesansbold.ttf'), 11)
     def blitme(self,msg):
         
         self.text = self.font.render(str(msg-1), True, (250,0,0), (250,250,250))

@@ -28,7 +28,7 @@ class Grid:
         # load the tile and get its rectangle
         '''when working with rect you can use (x,y) 
         of top,bot,midlft,rght to place object'''
-        img = pygame.image.load('images/gridTile.bmp')
+        img = pygame.image.load('images\\gridTile.bmp')
         scaleSize = self.DEFAULT_SIZE[0] - n//1.5
         if scaleSize < 19:
             scaleSize = 15

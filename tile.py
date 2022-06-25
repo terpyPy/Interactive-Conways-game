@@ -33,7 +33,7 @@ class Tile:
         # load the tile and get its rectangle
         '''when working with rect you can use (x,y) 
         of top,bot,midlft,rght to place object'''
-        img = pygame.image.load('images/tile.bmp')
+        img = pygame.image.load('images\\tile.bmp')
         scaleSize = self.DEFAULT_SIZE[0] - n//1.5
         if scaleSize < 19:
             scaleSize = 15
@@ -45,7 +45,7 @@ class Tile:
         #place tile at bottom center of screen
         self.Color = (250,250,250)
         self.isEffected = 1
-        self.textWindow = tileWindow(self,self.isEffected,self.rect.x,self.rect.y)
+        self.textWindow = tileWindow(self, self.isEffected, self.rect.x, self.rect.y)
 
     def blitme(self, debug):
         # draw the obj at its current location
