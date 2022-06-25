@@ -1,4 +1,4 @@
-# Pygame Animation of Conway's game.
+# Pygame Animation of Conway's game. By Cameron Kerley, with inspration from Hunter Hannula & and the adafruit github
  interactive game of life simulation.
  the main file to run the game is lights_out.py
  
