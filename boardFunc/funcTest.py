@@ -14,17 +14,41 @@
 # sudo code that helped write this function was found here: https://stackoverflow.com/a/652123
 def eight_neighbors_adj(matrix, colNumber, rowNumber):
     result = []
-
-    for colAdd in range(-1, 2):
-        newCol = colNumber + colAdd
-        if newCol >= 0 and newCol <= len(matrix)-1:
-            for rowAdd in range(-1, 2):
-                newRow = rowNumber + rowAdd
-                if newRow >= 0 and newRow <= len(matrix)-1:
-                    if newCol == colNumber and newRow == rowNumber:
-                        continue
-                    result.append((newCol,newRow))
-    
+    # with the colNumber and rowNumber, we can find the 8 neighbors without a for loop
+    upperbound = len(matrix) - 1
+    lowerbound = 0
+    # check if the rowNumber is not the upperbound
+    if rowNumber != upperbound:
+        # if the rowNumber is not the upperbound, then we can add the rowNumber + 1 to the result
+        result.append((colNumber, rowNumber + 1))
+        # check if the colNumber is not the upperbound
+        if colNumber != upperbound:
+            # if the colNumber is not the upperbound, then we can add the colNumber + 1 to the result
+            result.append((colNumber + 1, rowNumber + 1))
+        # check if the colNumber is not the lowerbound
+        if colNumber != lowerbound:
+            # if the colNumber is not the lowerbound, then we can add the colNumber - 1 to the result
+            result.append((colNumber - 1, rowNumber + 1))
+    # check if the rowNumber is not the lowerbound
+    if rowNumber != lowerbound:
+        # if the rowNumber is not the lowerbound, then we can add the rowNumber - 1 to the result
+        result.append((colNumber, rowNumber - 1))
+        # check if the colNumber is not the upperbound
+        if colNumber != upperbound:
+            # if the colNumber is not the upperbound, then we can add the colNumber + 1 to the result
+            result.append((colNumber + 1, rowNumber - 1))
+        # check if the colNumber is not the lowerbound
+        if colNumber != lowerbound:
+            # if the colNumber is not the lowerbound, then we can add the colNumber - 1 to the result
+            result.append((colNumber - 1, rowNumber - 1))
+            # check if the colNumber is not the upperbound
+    if colNumber != upperbound:
+        # if the colNumber is not the upperbound, then we can add the colNumber + 1 to the result
+        result.append((colNumber + 1, rowNumber))   
+    # check if the colNumber is not the lowerbound
+    if colNumber != lowerbound:
+        # if the colNumber is not the lowerbound, then we can add the colNumber - 1 to the result
+        result.append((colNumber - 1, rowNumber))
     return result
 
 def arrayMap(i, width):
@@ -32,12 +56,12 @@ def arrayMap(i, width):
     y = i // width;    # // is floor division
     return x,y
 
-def checkWin(board, N):
+def checkWin(board, N,offcolor=(250,250,250)):
         flatlist = sum(board, [])
         #print(flatlist)
         buttColorList = []
         for i in range(len(flatlist)):
             buttColorList.insert(i,flatlist[i])
         # check logical board against win condition, in this case if the board is empty
-        if buttColorList == [(250,250,250)]*(N**2):
+        if buttColorList == [offcolor]*(N**2):
             return True
