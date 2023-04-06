@@ -155,7 +155,6 @@ class Tile(Grid):
 class tileGroup:
     def __init__(self, state, *args) -> None:
         # initialize the flags object with the flags passed in
-
         self.screen = state.screen
         self.screen_rect = state.screen.get_rect()
         self.N = state.N
@@ -166,19 +165,30 @@ class tileGroup:
         self.gridArray = []
         self._make_entity_group()
 
-    def _make_entity_group(self, *args) -> None:
-        # *args is not currently used, but is there to allow for future expansion
+    def new_tile(self,screen, **args):
+        return Tile(screen, **args)
+    
+    def new_grid(self,screen, **args):
+        return Grid(screen, **args)
+    
+    def new_entity_list(self, func):
+        """creates a list of lists of entities, where each entity is created by the function passed in"""
+        return list(
+            map(lambda x: 
+                list(
+                    map(
+                        lambda y: func(self.screen, rect=self.screen_rect, settings=self.settings, cords=(x, y)),
+                        range(self.N)
+                        )
+                    ), range(self.N)
+                )
+            )
+        
+    def _make_entity_group(self) -> None:
         # create the tile and grid entity groups
-
-        for i in range(self.N):
-            self.tileArray.append([])
-            self.gridArray.append([])
-            for j in range(self.N):
-                self.tileArray[i].append(
-                    Tile(self.screen, self.screen_rect, (i, j), self.settings))
-                self.gridArray[i].append(
-                    Grid(self.screen, self.screen_rect, (i, j), self.settings))
-
+        self.tileArray = self.new_entity_list(self.new_tile)
+        self.gridArray = self.new_entity_list(self.new_grid)
+        
     def getColors(self):
         # get the colors of the tiles in the tile group
         return list(map(lambda x: list(map(lambda y: y.get_color(), x)), self.tileArray))
@@ -192,9 +202,8 @@ class tileGroup:
                         lambda y: self.tileArray[x][y].set_color(colors[x][y]),
                         range(self.N)
                     )
-                ),
-                range(self.N)
-                )
+                ), range(self.N)
+            )
         )
 
     def getTextXY(self):
