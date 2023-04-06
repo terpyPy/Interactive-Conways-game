@@ -2,3 +2,21 @@
 *.pyc
 
 *.pyc
+test_new_ideas.ipynb
+taskStats.txt
+taskStats.csv
+presets.csv
+lib/baseEntityFlags.py
+lib/baseEntityFlags.py
+item_files.csv
+index.html
+ImageRec/locateClass.py
+ImageRec/__init__.py
+appTest.py
+archived/cv_client_v1.py
+archived/lights_Out_v3.py
+archived/lights_Out_v3.py
+archived/lights_Out_v3.py
+boardFunc/__pycache__/__init__.cpython-39.pyc
+boardFunc/__pycache__/funcTest.cpython-39.pyc
+cv_client_v2.py
