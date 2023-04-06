@@ -4,8 +4,8 @@
 #  Date:        6 June 2022
 #  License:     MIT License
 #
-#  Disclosure:  This code is public domain. You can use it in any way you want. 
-#               However, i am scanning github repos for this code that does not include credit to me. 
+#  Disclosure:  This code is public domain. You can use it in any way you want.
+#               However, i am scanning github repos for this code that does not include credit to me.
 #               I have left some patterns in the naming convention and access methods
 #               in this project making copy/pasted stolen code easy to parse and find.
 #
@@ -26,7 +26,7 @@ class boardState(Settings):
 
     def __init__(self, state, *args):
         # inherited instance of Settings from the game settings class
-        super().__init__(isGlobal='boardState.py')
+        super().__init__(state.N, isGlobal='boardState.py')
         self.N = state.N
         self.colorList = [[None]*self.N for _ in range(self.N)]
         self.emptyBoard = [
@@ -34,13 +34,26 @@ class boardState(Settings):
         self.winBoard = [[(self.winColor)]*self.N for button in range(self.N)]
         # the init method takes one argument, the grid size
         self.theBoard = state.board.tileArray
+        self.sateGet = state.board
         self.buttonsToColor = [self.theBoard[0][0],
-                               self.theBoard[0][1],
-                               self.theBoard[0][2]]
+                               self.theBoard[1][0],
+                               self.theBoard[2][0],
+                               self.theBoard[3][0]]
         self.timePressed = monotonic()
         self.eventButt = None
         self.previousButtonPressed = ()
         self.changedIndexes = []
+        self.isWin = False
+        self.rules = (3, 6, 4)
+        self.lastTwo = []
+
+    def resetDriver(self):
+        self.colorList.clear()
+        self.emptyBoard.clear()
+        self.theBoard.clear()
+
+    def getMode(self):
+        return self.mode
 
     def debounce(self):
         # filters button inputs, input will only be accepted every 0.2 seconds as measured from last press
@@ -50,16 +63,12 @@ class boardState(Settings):
             return False
 
     def get_color_list(self):
-        colorList = self.colorList.copy()
-        for i in range(self.N):
-            for j in range(self.N):
-                colorList[i][j] = self.theBoard[i][j].Color
+        colorList = self.sateGet.getColors()
         return colorList
 
     def set_color_list(self, colors):
-        for i in range(self.N):
-            for j in range(self.N):
-                self.theBoard[i][j].Color = colors[i][j]
+        self.sateGet.setColors(colors)
+        
 
     def returnEffected(self):
         for i, j in self.changedIndexes:
@@ -74,36 +83,44 @@ class boardState(Settings):
         for i in range(self.N):
             for j in range(self.N):
                 if self.isMulticolor:
+                    self.theBoard[i][j].isEffected += 1
                     x = self.theBoard[i][j].isEffected
                     # print(x)
-                    onColor = ((100+i+j)%250, (x*(i)+j) % 125, (x*(i+j)) % 250)
+                    onColor = ((x+i+j) % 250, (x*(i)+j) % 125, (x*(i+j)) % 250)
                 simPress = (i, j)
                 boardInstance, self.changedIndexes = boardFunc.NewGameLogic(boardInstance,
                                                                             simPress,
                                                                             onColor,
-                                                                            self.offColor)
-                self.returnEffected()
-
+                                                                            self.offColor, *self.rules)
         return boardInstance
+
+    def cpuPlay(self):
+        pass
 
     def choseMode(self):
         if self.eventButt == None:
             self.buttonsToColor[0].Color = self.onColor
             self.buttonsToColor[1].Color = self.simColor
             self.buttonsToColor[2].Color = (123, 30, 170)
+            self.buttonsToColor[3].Color = (50, 50, 170)
             print('on start screen')
         else:
-            if self.eventButt == (0, 0):
-                self.mode = self.modes[0]
-                self.clearBoard()
+            if self.eventButt != -2:
+                if self.eventButt == (0, 0):
+                    self.mode = self.modes[0]
+                    self.clearBoard()
 
-            elif self.eventButt == (0, 1):
-                self.mode = self.modes[1]
-                self.clearBoard()
+                elif self.eventButt == (1, 0):
+                    self.mode = self.modes[1]
+                    self.clearBoard()
 
-            elif self.eventButt == (0, 2):
-                self.mode = self.modes[2]
-                self.clearBoard()
+                elif self.eventButt == (2, 0):
+                    self.mode = self.modes[2]
+                    self.clearBoard()
+
+                elif self.eventButt == (3, 0):
+                    self.mode = self.modes[3]
+                    self.clearBoard()
             # self.eventButt = None
 
     def randomStart(self):
@@ -126,10 +143,10 @@ class boardState(Settings):
         # list of tiles in the off state to give as arg for update color
         self.set_color_list(self.emptyBoard)
 
-        if self.mode == 'run':
+        if self.getMode() in ('run', 'AI'):
             self.randomStart()
 
-    def boardLogic(self, event):
+    def boardLogic(self, event, *rules):
 
         if self.mode in self.modes:
             self.eventButt = event
@@ -137,11 +154,13 @@ class boardState(Settings):
             if not self.eventButt == self.previousButtonPressed:
 
                 # create a reference to the current state of the button colors
-                if self.mode == self.modes[2] and not self.isPause:
+                if self.getMode() == self.modes[2]:
                     boardInstance = self.get_color_list()
-                    time.sleep(0.23)
-                    boardInstance = self.animation(boardInstance)
-
+                    if not self.isPause:
+                        boardInstance = self.animation(boardInstance)
+                        # time.sleep(0.08)
+                    elif rules:
+                        self.rules = rules[0]
                     self.set_color_list(boardInstance)
 
                 if event not in (-1, -2):
@@ -155,10 +174,11 @@ class boardState(Settings):
                     self.set_color_list(boardInstance)
                 # pass the updated color pointers to the entity list
 
-                    if self.mode != self.modes[1]:
+                    if self.getMode() != self.modes[1]:
                         # if the mode flag isnt set to draw check the win condition
                         if boardFunc.funcTest.checkWin(boardInstance, self.N):
                             self.set_color_list(self.winBoard)
+                            self.isWin = True
                             print('you won')
             else:
                 print('debounce failed')
