@@ -70,6 +70,14 @@ class LightsOutGame:
             self.N,
             screen=(800, 800),
             isGlobal=True)
+        
+        # the draw vector is used to draw the grid over the tiles
+        self.draw_vec_i = list(range(0, self.N))*self.N
+        # reverse the draw vector
+        self.draw_vec_j = self.draw_vec_i.copy()[::-1]
+        # reassign the draw vector i to row wise order
+        self.draw_vec_i = [x for x in range(
+            0, self.N) for y in range(0, self.N)]
 
         # init the grid drawn over each tile
         self.board = tileGroup(self)
@@ -89,15 +97,8 @@ class LightsOutGame:
         # set option button color
         self.new_rules_button.set_color([250,250,250])
         self.FPS_option_button.set_color([250,250,250])
-        # the draw vector is used to draw the grid over the tiles
         # x = list(range(0,5))*5
         # print(list(x), list(reversed(x)))
-        self.draw_vec_i = list(range(0, self.N))*self.N
-        # reverse the draw vector
-        self.draw_vec_j = self.draw_vec_i.copy()[::-1]
-        # reassign the draw vector i to row wise order
-        self.draw_vec_i = [x for x in range(
-            0, self.N) for y in range(0, self.N)]
         # hashmaps for the draw vector
         self.tileMap = map(self.board.drawTile,
                            self.draw_vec_i, self.draw_vec_j)
