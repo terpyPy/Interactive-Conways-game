@@ -86,7 +86,7 @@ class boardState(Settings):
                     self.theBoard[i][j].isEffected += 1
                     x = self.theBoard[i][j].isEffected
                     # print(x)
-                    onColor = ((x+i+j) % 250, (x*(i)+j) % 125, (x*(i+j)) % 250)
+                    onColor = ((x+i+j) % 200, (x*(i)+j) % 125, (x*(i+j)) % 250)
                 simPress = (i, j)
                 boardInstance, self.changedIndexes = boardFunc.NewGameLogic(boardInstance,
                                                                             simPress,
@@ -176,7 +176,7 @@ class boardState(Settings):
 
                     if self.getMode() != self.modes[1]:
                         # if the mode flag isnt set to draw check the win condition
-                        if boardFunc.funcTest.checkWin(boardInstance, self.N):
+                        if boardFunc.funcTest.checkWin(boardInstance, self.N, offcolor=self.offColor):
                             self.set_color_list(self.winBoard)
                             self.isWin = True
                             print('you won')
