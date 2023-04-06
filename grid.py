@@ -17,7 +17,7 @@ resourcPath = os.path.join(
                     os.environ.get("_MEIPASS2", os.path.abspath(".")),'images\\gridTile.bmp')
 class Grid:
 
-    def __init__(self, screen, rect, cords, settings,noPad=False):
+    def __init__(self, screen, rect=[], cords=(), settings={},noPad=False):
         #init the tile and set its position                                                       
         #in pygame the origin is (0,0) at the top lft of the screen. cords > 0 for x -> right, y 0___> +x and <= 1200
         #                                                                                        |
