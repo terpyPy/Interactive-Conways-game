@@ -13,7 +13,7 @@ import pygame
 
 class Settings:
     # store the game settings
-    def __init__(self, N:int,screen:tuple=(0,0), isGlobal:str=False) -> object:
+    def __init__(self, N:int,screen:tuple=(0,0), isGlobal=False) -> object:
         # screen settings
         self.screen_width, self.screen_height = screen
         self.N = N
@@ -23,8 +23,7 @@ class Settings:
                 print('used default screen size')
             else:
                 print(f'screen_width :{self.screen_width}\n screen_hight: {self.screen_height}')
-        else:
-            print(f'not screen settings for isGlobal. \nused {self.screen_width}:{self.screen_height}')
+                
         self.bg_color = (40,40,40)
         # game driver settings
         self.isMulticolor = False

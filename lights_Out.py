@@ -69,7 +69,7 @@ class LightsOutGame:
         self.settings = Settings(
             self.N,
             screen=(800, 800),
-            isGlobal=False)
+            isGlobal=True)
 
         # init the grid drawn over each tile
         self.board = tileGroup(self)

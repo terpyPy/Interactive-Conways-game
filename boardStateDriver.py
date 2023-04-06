@@ -26,7 +26,7 @@ class boardState(Settings):
 
     def __init__(self, state, *args):
         # inherited instance of Settings from the game settings class
-        super().__init__(state.N, isGlobal='boardState.py')
+        super().__init__(state.N, isGlobal=False)
         self.N = state.N
         self.colorList = [[None]*self.N for _ in range(self.N)]
         self.emptyBoard = [

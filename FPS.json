@@ -1,1 +1,1 @@
-{"element": "FPS", "cords": [0, 5], "size": [73, 74], "screenRect": [0, 0, 800, 800], "rect": [2, 395, 50, 50], "noScale": true, "noPad": true, "path": "images\\tile.bmp", "color": [50, 50, 50], "isEffected": 1}
+{"element": "FPS", "cords": [0, 20], "size": [18, 18], "screenRect": [0, 0, 800, 800], "rect": [2, 385, 50, 50], "noScale": true, "noPad": true, "path": "images\\tile.bmp", "color": [50, 50, 50], "isEffected": 1}
