@@ -12,18 +12,18 @@
 #----------------------------------------------------------------------------------------------------------------------
 
 # sudo code that helped write this function was found here: https://stackoverflow.com/a/652123
-def neighbors(matrix, rowNumber, colNumber):
+def eight_neighbors_adj(matrix, colNumber, rowNumber):
     result = []
-    # search the grid by the cords given 
-    for rowAdd in range(-1, 2):
-        newRow = rowNumber + rowAdd
-        if newRow >= 0 and newRow <= len(matrix)-1:
-            for colAdd in range(-1, 2):
-                newCol = colNumber + colAdd
-                if newCol >= 0 and newCol <= len(matrix)-1:
+
+    for colAdd in range(-1, 2):
+        newCol = colNumber + colAdd
+        if newCol >= 0 and newCol <= len(matrix)-1:
+            for rowAdd in range(-1, 2):
+                newRow = rowNumber + rowAdd
+                if newRow >= 0 and newRow <= len(matrix)-1:
                     if newCol == colNumber and newRow == rowNumber:
                         continue
-                    result.append((newRow,newCol))
+                    result.append((newCol,newRow))
     
     return result
 
